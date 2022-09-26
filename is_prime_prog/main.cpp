@@ -1,8 +1,8 @@
 #include <iostream>
 #include <math.h>
 
-#define DUMMY_THREASHOLD 10000
-#define MR_NB_TESTS 10
+#define MR_NB_TESTS 15
+#define DUMMY_THREASHOLD (MR_NB_TESTS * MR_NB_TESTS)
 
 using namespace std;
 
@@ -24,11 +24,6 @@ size_t exponential_modulus(size_t base, size_t exponent, size_t modulus)
 bool miller_rabin_prime(size_t p)
 {
     // Using Miller-Rabin primality test
-    if (p < 2)
-        return false;
-    if (p != 2 && p % 2 == 0)
-        return false;
-
     // Find s & d where `p - 1 = (2^s)×d`, s > 0.
     size_t s = 0;
     size_t d = p - 1;
@@ -54,7 +49,7 @@ bool miller_rabin_prime(size_t p)
         for (size_t r = 0; r < s && !test_2; r++)
         {
             // Compute `x = x^2 mod p`.
-            test_2 = exponential_modulus(a_exp_d, pow(2,r) , p) == p - 1;
+            test_2 = exponential_modulus(a_exp_d, pow(2, r), p) == p - 1;
         }
 
         // If `x` is not `p - 1`, then `a` is a witness for the compositeness of
@@ -80,7 +75,10 @@ int main()
     while (std::cin >> number)
     {
         bool is_prime;
-        if (number <= DUMMY_THREASHOLD)
+
+        if (number < 2 || number != 2 && number % 2 == 0)
+            is_prime = false;
+        else if (number < DUMMY_THREASHOLD)
             is_prime = dummy_prime(number);
         else
             is_prime = miller_rabin_prime(number);
