@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
         if (!myfile.is_open())
         {
-            std::cerr << "The file *" + path + "* could not be opened." << '\n';
+            cerr << "The file " + path + " could not be opened." << '\n';
             return 1;
         }
 
@@ -39,15 +39,13 @@ int main(int argc, char **argv)
             }
         }
 
-        cout << "The file *" + path + "* contains *" + to_string(count)
-                + "* words containing "
-                  "the motive *"
-                + motive + "*"
+        cout << "The file " + path + " contains " + to_string(count)
+                + " words containing the motive " + motive
              << endl;
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what() << '\n';
+        cerr << e.what() << '\n';
         return 1;
     }
 
