@@ -34,7 +34,7 @@ int main(int argc, char **argv)
                 if (found == string::npos)
                     break;
 
-                i += found + 1;
+                i = found + 1;
                 count++;
             }
         }
