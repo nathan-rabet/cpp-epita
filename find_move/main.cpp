@@ -9,47 +9,25 @@ int main(int argc, char **argv)
     if (argc != 3)
         return 1;
 
-    ifstream myfile;
     string path = argv[1];
     string motive = argv[2];
 
-    try
+    ifstream myfile = ifstream(path);
+    if (myfile.fail())
     {
-        myfile.open(path);
-
-        if (!myfile.is_open())
-        {
-            cerr << "The file " + path + " could not be opened." << '\n';
-            return 1;
-        }
-
-        string line;
-        size_t count = 0;
-        while (getline(myfile, line))
-        {
-            size_t i = 0;
-            while (i < line.length())
-            {
-                int found = line.find(motive, i);
-                if (found == string::npos)
-                    break;
-
-                i = found + 1;
-                count++;
-            }
-        }
-
-        myfile.close();
-
-        cout << "The file " + path + " contains " + to_string(count)
-                + " words containing the motive " + motive
-             << endl;
-    }
-    catch (const std::exception &e)
-    {
-        cerr << e.what() << '\n';
+        cout << "The file " + path + " could not be opened." << '\n';
         return 1;
     }
+
+    string word;
+    size_t count = 0;
+    while (myfile >> word)
+        if (word.find(motive) != string::npos)
+            count = count + 1;
+
+    cout << "The file " + path + " contains " + to_string(count)
+            + " words containing the motive " + motive
+         << endl;
 
     return 0;
 }
