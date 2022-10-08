@@ -39,6 +39,8 @@ int main(int argc, char **argv)
             }
         }
 
+        myfile.close();
+
         cout << "The file " + path + " contains " + to_string(count)
                 + " words containing the motive " + motive
              << endl;
