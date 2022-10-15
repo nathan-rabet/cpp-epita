@@ -122,3 +122,30 @@ std::ostream &operator<<(std::ostream &os, const Vector &v)
     os << "}";
     return os;
 }
+
+Vector operator*(const value &s, const Vector &v)
+{
+    value l[NDIM];
+    for (size_t i = 0; i < NDIM; ++i)
+        l[i] = v.get_coord(i) * s;
+
+    return Vector(l);
+}
+
+Vector operator+(const value &s, const Vector &v)
+{
+    value l[NDIM];
+    for (size_t i = 0; i < NDIM; ++i)
+        l[i] = v.get_coord(i) + s;
+
+    return Vector(l);
+}
+
+Vector operator-(const value &s, const Vector &v)
+{
+    value l[NDIM];
+    for (size_t i = 0; i < NDIM; ++i)
+        l[i] = v.get_coord(i) - s;
+
+    return Vector(l);
+}

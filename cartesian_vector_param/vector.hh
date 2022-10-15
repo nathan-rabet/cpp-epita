@@ -26,25 +26,14 @@ public:
 
     Vector operator+(const Vector &other) const;
 
-    // Dot product
-    value operator*(const Vector &other) const;
-
-    // Dot product with a scalar
-    Vector operator*(const int rhs) const;
-
+    value operator*(const Vector &other) const; // Dot product
+    Vector operator*(const int rhs) const; // Product with a scalar
     Vector operator-(const Vector &other) const;
-
-    // Public Member functions here
     Vector &operator+=(const Vector &rhs);
-
     Vector &operator+=(const int rhs);
-
     Vector &operator-=(const Vector &rhs);
-
     Vector &operator*=(const Vector &rhs);
-
     Vector &operator*=(const value &rhs);
-
     value &operator[](size_t i);
     // More to go
 
@@ -57,3 +46,6 @@ private:
 
 // Nonmember function operators go here
 std::ostream &operator<<(std::ostream &os, const Vector &v);
+Vector operator*(const value &s, const Vector &v);
+Vector operator+(const value &s, const Vector &v);
+Vector operator-(const value &s, const Vector &v);
