@@ -1,10 +1,5 @@
 #include "vector.hh"
 
-int Vector::get_coord(int i) const
-{
-    return coords[i];
-}
-
 Vector::Vector()
 {
     for (size_t i = 0; i < NDIM; i++)
@@ -25,11 +20,10 @@ Vector::Vector(std::initializer_list<value> l)
 
 Vector Vector::operator+(const Vector &other) const
 {
-    value l[NDIM];
+    Vector v = Vector{};
     for (size_t i = 0; i < NDIM; ++i)
-        l[i] = coords[i] + other.coords[i];
-
-    return Vector(l);
+        v.coords[i] = coords[i] + other.coords[i];
+    return v;
 }
 
 // Dot product
@@ -42,23 +36,21 @@ value Vector::operator*(const Vector &other) const
     return sum;
 }
 
-// Dot product with a scalar
-Vector Vector::operator*(const int rhs) const
+// Product with a scalar
+Vector Vector::operator*(const value rhs) const
 {
-    value l[NDIM];
+    Vector v = Vector{};
     for (size_t i = 0; i < NDIM; ++i)
-        l[i] = coords[i] * rhs;
-
-    return Vector(l);
+        v.coords[i] = coords[i] * rhs;
+    return v;
 }
 
 Vector Vector::operator-(const Vector &other) const
 {
-    value l[NDIM];
+    Vector v = Vector{};
     for (size_t i = 0; i < NDIM; ++i)
-        l[i] = coords[i] - other.coords[i];
-
-    return Vector(l);
+        v.coords[i] = coords[i] - other.coords[i];
+    return v;
 }
 
 // Public Member functions here
@@ -70,10 +62,10 @@ Vector &Vector::operator+=(const Vector &rhs)
     return *this;
 }
 
-Vector &Vector::operator+=(const int rhs)
+Vector &Vector::operator+=(const value rhs)
 {
     for (size_t i = 0; i < NDIM; ++i)
-        coords[i] *= rhs;
+        coords[i] += rhs;
 
     return *this;
 }
@@ -108,14 +100,19 @@ value &Vector::operator[](size_t i)
     return coords[i];
 }
 
-// Not vector operators
+value Vector::operator[](size_t i) const
+{
+    assert(i < NDIM);
+    return coords[i];
+}
 
+// Not vector operators
 std::ostream &operator<<(std::ostream &os, const Vector &v)
 {
     os << "{";
     for (size_t i = 0; i < NDIM; ++i)
     {
-        os << v.get_coord(i);
+        os << v[i];
         if (i != NDIM - 1)
             os << ",";
     }
@@ -127,7 +124,7 @@ Vector operator*(const value &s, const Vector &v)
 {
     value l[NDIM];
     for (size_t i = 0; i < NDIM; ++i)
-        l[i] = v.get_coord(i) * s;
+        l[i] = v[i] * s;
 
     return Vector(l);
 }
@@ -136,7 +133,7 @@ Vector operator+(const value &s, const Vector &v)
 {
     value l[NDIM];
     for (size_t i = 0; i < NDIM; ++i)
-        l[i] = v.get_coord(i) + s;
+        l[i] = v[i] + s;
 
     return Vector(l);
 }
@@ -145,7 +142,7 @@ Vector operator-(const value &s, const Vector &v)
 {
     value l[NDIM];
     for (size_t i = 0; i < NDIM; ++i)
-        l[i] = v.get_coord(i) - s;
+        l[i] = v[i] - s;
 
     return Vector(l);
 }

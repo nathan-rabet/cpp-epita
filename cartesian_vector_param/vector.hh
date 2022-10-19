@@ -18,22 +18,22 @@ public:
     // Add suitable constructors
     Vector();
 
-    int get_coord(int i) const;
-
     Vector(const value v[]);
-
     Vector(std::initializer_list<value> l);
 
     Vector operator+(const Vector &other) const;
-
-    value operator*(const Vector &other) const; // Dot product
-    Vector operator*(const int rhs) const; // Product with a scalar
     Vector operator-(const Vector &other) const;
+    value operator*(const Vector &other) const; // Dot product
+    Vector operator*(const value rhs) const; // Product with a scalar
+
     Vector &operator+=(const Vector &rhs);
-    Vector &operator+=(const int rhs);
+    Vector &operator+=(const value rhs);
     Vector &operator-=(const Vector &rhs);
+    Vector &operator-=(const value rhs);
     Vector &operator*=(const Vector &rhs);
     Vector &operator*=(const value &rhs);
+
+    value operator[](size_t i) const;
     value &operator[](size_t i);
     // More to go
 
