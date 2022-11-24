@@ -1,15 +1,16 @@
-template<class CONT>
-void my_selection_sort(CONT begin, CONT end) {
-    for(auto i = begin; i != end; i++)
+template <class CONT>
+void my_selection_sort(CONT begin, CONT end)
+{
+    for (CONT i = begin; i != end; i++)
     {
-        auto min = i;
-	for(auto j = i; j != end; j++)
-	{
-            if(*j < *min)
+        CONT min = i;
+        for (CONT j = i; j != end; j++)
+        {
+            if (*j < *min)
                 min = j;
-	}
+        }
         auto tmp = *i;
-	*i = *min;
-	*min = tmp;
+        *i = *min;
+        *min = tmp;
     }
 }
